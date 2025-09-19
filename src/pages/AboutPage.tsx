@@ -67,7 +67,7 @@ const AboutPage = () => {
     />
   );
 
-  // Parallax effect for mouse movement
+
   const parallaxStyle = (intensity = 1) => ({
     transform: `translate(${mousePosition.x * intensity * 0.02}px, ${mousePosition.y * intensity * 0.02}px)`
   });
@@ -156,7 +156,7 @@ const AboutPage = () => {
       `}</style>
 
       <div className="pt-24 pb-16 px-4 min-h-screen relative overflow-hidden bg-gradient-to-br from-gray-900 via-purple-900/20 to-black">
-        {/* Animated background particles */}
+        
         <div className="fixed inset-0 pointer-events-none">
           {[...Array(20)].map((_, i) => (
             <FloatingParticle key={i} delay={i * 0.5} />
@@ -164,7 +164,7 @@ const AboutPage = () => {
         </div>
 
         <div className="max-w-7xl mx-auto relative z-10">
-          {/* Enhanced Header with typewriter effect */}
+        
           <div className="text-center mb-16 relative">
             <div
               className="absolute -top-10 -left-10 w-20 h-20 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full opacity-20 blur-xl"
@@ -184,7 +184,7 @@ const AboutPage = () => {
             </p>
           </div>
 
-          {/* Enhanced Mission Statement */}
+         
           <div className="bg-gradient-to-br from-purple-900/30 via-blue-900/30 to-pink-900/30 rounded-3xl p-12 border border-purple-500/20 backdrop-blur-sm mb-16 relative hover-lift morphing">
             <div className="text-center">
               <div className="mb-6 relative">
@@ -208,7 +208,7 @@ const AboutPage = () => {
             </div>
           </div>
 
-          {/* Enhanced Stats with staggered animations */}
+         
           <div className="grid md:grid-cols-4 gap-8 mb-16">
             {stats.map((stat, index) => (
               <div
@@ -230,7 +230,7 @@ const AboutPage = () => {
                 </h3>
                 <p className="text-gray-400">{stat.label}</p>
                 
-                {/* Hover effect particles */}
+               
                 <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
                   {[...Array(5)].map((_, i) => (
                     <div
@@ -248,22 +248,20 @@ const AboutPage = () => {
             ))}
           </div>
 
-          {/* Completely Reworked Our Story Section */}
+         
           <div className="mb-16">
             <h2 className="text-4xl font-bold text-center mb-16 gradient-text">
               Our Story
             </h2>
             
-            {/* Timeline Layout */}
+         
             <div className="relative">
-              {/* Central Timeline Line */}
               <div className="absolute left-1/2 transform -translate-x-1/2 w-1 h-full bg-gradient-to-b from-purple-500 via-pink-500 to-blue-500 opacity-30 rounded-full hidden lg:block">
                 <div className="absolute top-0 w-full h-20 bg-gradient-to-b from-purple-500 to-transparent animate-pulse rounded-full" />
               </div>
               
-              {/* Story Cards */}
+             
               <div className="space-y-16 lg:space-y-24">
-                {/* Card 1 - The Problem */}
                 <div className="grid lg:grid-cols-2 gap-8 items-center relative">
                   <div className="lg:text-right lg:pr-16 order-2 lg:order-1">
                     <div className="bg-gradient-to-br from-red-900/30 to-orange-900/30 rounded-3xl p-8 border border-red-500/20 backdrop-blur-sm hover-lift relative group overflow-hidden">
@@ -282,7 +280,7 @@ const AboutPage = () => {
                         knows this struggle.
                       </p>
                       
-                      {/* Decorative Elements */}
+                     
                       <div className="absolute -top-2 -right-2 w-6 h-6 bg-yellow-400 rounded-full animate-bounce opacity-70" />
                       <div className="absolute -bottom-2 -left-2 w-4 h-4 bg-red-400 rounded-full animate-pulse opacity-50" />
                     </div>
@@ -296,7 +294,7 @@ const AboutPage = () => {
                       <ChefHat className="w-16 h-16 text-red-400 group-hover:scale-110 transition-transform bounce-in" />
                       <div className="absolute inset-0 bg-red-500/20 rounded-full blur-xl animate-pulse" />
                       
-                      {/* Orbiting Elements */}
+            
                       <div className="absolute inset-0 animate-spin">
                         <div className="absolute -top-2 left-1/2 transform -translate-x-1/2 w-3 h-3 bg-yellow-400 rounded-full" />
                         <div className="absolute -right-2 top-1/2 transform -translate-y-1/2 w-2 h-2 bg-pink-400 rounded-full" />
@@ -306,11 +304,11 @@ const AboutPage = () => {
                     </div>
                   </div>
                   
-                  {/* Timeline Dot */}
+    
                   <div className="absolute left-1/2 transform -translate-x-1/2 w-6 h-6 bg-red-500 rounded-full border-4 border-gray-900 hidden lg:block z-10 pulse-glow" />
                 </div>
 
-                {/* Card 2 - The Solution */}
+              
                 <div className="grid lg:grid-cols-2 gap-8 items-center relative">
                   <div className="flex justify-center lg:justify-end lg:pr-16">
                     <div 
@@ -320,7 +318,7 @@ const AboutPage = () => {
                       <Brain className="w-16 h-16 text-purple-400 group-hover:scale-110 transition-transform bounce-in" />
                       <div className="absolute inset-0 bg-purple-500/20 rounded-full blur-xl animate-pulse" />
                       
-                      {/* Neural Network Effect */}
+                
                       <div className="absolute inset-0">
                         {[...Array(8)].map((_, i) => (
                           <div
@@ -354,7 +352,7 @@ const AboutPage = () => {
                         change everything.
                       </p>
                       
-                      {/* AI Circuit Pattern */}
+               
                       <div className="absolute top-4 right-4 opacity-20 group-hover:opacity-40 transition-opacity">
                         <div className="grid grid-cols-3 gap-1">
                           {[...Array(9)].map((_, i) => (
@@ -365,11 +363,11 @@ const AboutPage = () => {
                     </div>
                   </div>
                   
-                  {/* Timeline Dot */}
+                
                   <div className="absolute left-1/2 transform -translate-x-1/2 w-6 h-6 bg-purple-500 rounded-full border-4 border-gray-900 hidden lg:block z-10 pulse-glow" />
                 </div>
 
-                {/* Card 3 - The Evolution */}
+    
                 <div className="grid lg:grid-cols-2 gap-8 items-center relative">
                   <div className="lg:text-right lg:pr-16 order-2 lg:order-1">
                     <div className="bg-gradient-to-br from-green-900/30 to-emerald-900/30 rounded-3xl p-8 border border-green-500/20 backdrop-blur-sm hover-lift relative group overflow-hidden">
@@ -388,7 +386,7 @@ const AboutPage = () => {
                         that truly understands food and cooking.
                       </p>
                       
-                      {/* Growth Visualization */}
+                     
                       <div className="absolute bottom-4 right-4 opacity-30 group-hover:opacity-60 transition-opacity">
                         <div className="flex items-end space-x-1">
                           {[...Array(5)].map((_, i) => (
@@ -415,7 +413,7 @@ const AboutPage = () => {
                       <Globe className="w-16 h-16 text-green-400 group-hover:scale-110 transition-transform bounce-in" />
                       <div className="absolute inset-0 bg-green-500/20 rounded-full blur-xl animate-pulse" />
                       
-                      {/* Global Network Effect */}
+                    
                       <div className="absolute inset-0 opacity-50">
                         <div className="absolute top-4 left-8 w-2 h-2 bg-yellow-400 rounded-full animate-ping" />
                         <div className="absolute top-12 right-6 w-1 h-1 bg-blue-400 rounded-full animate-ping animation-delay-200" />
@@ -425,11 +423,11 @@ const AboutPage = () => {
                     </div>
                   </div>
                   
-                  {/* Timeline Dot */}
+                  
                   <div className="absolute left-1/2 transform -translate-x-1/2 w-6 h-6 bg-green-500 rounded-full border-4 border-gray-900 hidden lg:block z-10 pulse-glow" />
                 </div>
 
-                {/* Card 4 - The Future */}
+           
                 <div className="grid lg:grid-cols-2 gap-8 items-center relative">
                   <div className="flex justify-center lg:justify-end lg:pr-16">
                     <div 
@@ -439,7 +437,7 @@ const AboutPage = () => {
                       <Rocket className="w-20 h-20 text-pink-400 group-hover:scale-110 transition-transform bounce-in" />
                       <div className="absolute inset-0 bg-pink-500/20 rounded-full blur-xl animate-pulse" />
                       
-                      {/* Rocket Trail Effect */}
+                    
                       <div className="absolute -bottom-8 left-1/2 transform -translate-x-1/2">
                         <div className="flex flex-col items-center space-y-1">
                           {[...Array(6)].map((_, i) => (
@@ -475,7 +473,7 @@ const AboutPage = () => {
                         of intelligent cooking and transforming kitchens worldwide.
                       </p>
                       
-                      {/* Future Tech Elements */}
+                
                       <div className="absolute top-2 right-2 opacity-30 group-hover:opacity-60 transition-opacity">
                         <div className="grid grid-cols-4 gap-1">
                           {[...Array(16)].map((_, i) => (
@@ -490,7 +488,7 @@ const AboutPage = () => {
                     </div>
                   </div>
                   
-                  {/* Timeline Dot - Final */}
+           
                   <div className="absolute left-1/2 transform -translate-x-1/2 w-8 h-8 bg-gradient-to-r from-pink-500 to-purple-500 rounded-full border-4 border-gray-900 hidden lg:block z-10 pulse-glow">
                     <div className="absolute inset-0 bg-gradient-to-r from-pink-500 to-purple-500 rounded-full blur-md animate-ping" />
                   </div>
@@ -499,7 +497,7 @@ const AboutPage = () => {
             </div>
           </div>
 
-          {/* Enhanced Values with advanced hover effects */}
+        
           <div className="mb-16">
             <h2 className="text-4xl font-bold text-center mb-12 gradient-text">
               Our Values
@@ -512,7 +510,7 @@ const AboutPage = () => {
                   className="p-6 bg-gradient-to-br from-gray-900/80 to-black/80 backdrop-blur-sm rounded-2xl border border-gray-700/50 hover-lift group relative overflow-hidden"
                   style={{ '--animation-delay': `${index * 0.1}s` }}
                 >
-                  {/* Animated background on hover */}
+                  
                   <div className="absolute inset-0 bg-gradient-to-r opacity-0 group-hover:opacity-10 transition-opacity duration-500 blur-xl"
                        style={{ background: `linear-gradient(45deg, var(--tw-gradient-stops))` }} />
                   
@@ -531,7 +529,7 @@ const AboutPage = () => {
                     </div>
                   </div>
                   
-                  {/* Corner decorations */}
+              
                   <div className="absolute top-2 right-2 w-2 h-2 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full opacity-0 group-hover:opacity-100 transition-opacity animate-pulse" />
                   <div className="absolute bottom-2 left-2 w-1 h-1 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full opacity-0 group-hover:opacity-100 transition-opacity animate-ping" />
                 </div>
@@ -539,7 +537,7 @@ const AboutPage = () => {
             </div>
           </div>
 
-          {/* Enhanced Team with interactive cards */}
+          
           <div className="mb-16">
             <h2 className="text-4xl font-bold text-center mb-12 gradient-text">
               Meet Our Team
@@ -552,7 +550,7 @@ const AboutPage = () => {
                   className="text-center p-6 bg-gradient-to-br from-gray-900/80 to-black/80 backdrop-blur-sm rounded-2xl border border-gray-700/50 hover-lift group relative overflow-hidden"
                   style={{ '--animation-delay': `${index * 0.1}s` }}
                 >
-                  {/* Animated background */}
+                
                   <div className="absolute inset-0 bg-gradient-to-br from-purple-600/20 to-pink-600/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                   
                   <div className="relative z-10">
@@ -576,7 +574,7 @@ const AboutPage = () => {
                     </p>
                   </div>
                   
-                  {/* Decorative elements */}
+                 
                   {[...Array(3)].map((_, i) => (
                     <div
                       key={i}
@@ -593,10 +591,9 @@ const AboutPage = () => {
             </div>
           </div>
 
-          {/* Enhanced Call to Action */}
+       
           <div className="text-center">
             <div className="bg-gradient-to-r from-purple-900/30 via-pink-900/30 to-blue-900/30 rounded-3xl p-12 border border-purple-500/20 backdrop-blur-sm hover-lift morphing relative overflow-hidden group">
-              {/* Animated background patterns */}
               <div className="absolute inset-0 opacity-10 group-hover:opacity-20 transition-opacity">
                 <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-transparent via-white/5 to-transparent skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
               </div>
