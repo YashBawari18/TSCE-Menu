@@ -9,16 +9,20 @@ import AboutPage from './pages/AboutPage';
 import CustomCursor from './components/CustomCursor';
 import InteractiveElements from './components/InteractiveElements';
 import Navigation from './components/Navigation';
+import Footer from "./components/Footer";
 
 function App() {
   return (
     <Router>
-      <div className="relative min-h-screen bg-black overflow-x-hidden">
+      {/* Flex container for sticky footer */}
+      <div className="flex flex-col min-h-screen bg-black overflow-x-hidden">
         <CustomCursor />
         <InteractiveElements />
         <Navigation />
-        
+
+        {/* Page content */}
         <motion.div
+          className="flex-1"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1 }}
@@ -31,6 +35,9 @@ function App() {
             <Route path="/about" element={<AboutPage />} />
           </Routes>
         </motion.div>
+
+        {/* Sticky parallax footer */}
+        <Footer />
       </div>
     </Router>
   );
