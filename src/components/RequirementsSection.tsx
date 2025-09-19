@@ -44,7 +44,7 @@ const RequirementsSection: React.FC = () => {
           </p>
         </motion.div>
 
-        {/* Search Interface */}
+        
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -70,7 +70,7 @@ const RequirementsSection: React.FC = () => {
             </div>
           </div>
 
-          {/* Filter Toggles */}
+          
           <div className="flex flex-wrap justify-center gap-4 mb-12">
             {filterOptions.map((filter) => (
               <motion.button
@@ -97,7 +97,7 @@ const RequirementsSection: React.FC = () => {
           </div>
         </motion.div>
 
-        {/* Recipe Cards */}
+        
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
@@ -119,7 +119,7 @@ const RequirementsSection: React.FC = () => {
               className="group perspective-1000"
             >
               <div className="relative bg-gradient-to-br from-gray-900/80 to-black/80 backdrop-blur-sm rounded-2xl overflow-hidden border border-gray-700/50 hover:border-purple-500/50 transition-all duration-500">
-                {/* Recipe Image/Emoji */}
+                
                 <div className="relative h-48 bg-gradient-to-br from-purple-900/30 to-blue-900/30 flex items-center justify-center">
                   <span className="text-6xl">{recipe.image}</span>
                   <div className="absolute top-4 right-4 bg-black/50 backdrop-blur-sm rounded-full px-3 py-1">
@@ -127,7 +127,7 @@ const RequirementsSection: React.FC = () => {
                   </div>
                 </div>
 
-                {/* Recipe Info */}
+                
                 <div className="p-6">
                   <h3 className="text-xl font-bold text-white mb-2 group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:bg-clip-text group-hover:from-purple-400 group-hover:to-blue-400 transition-all duration-300">
                     {recipe.title}
@@ -146,14 +146,14 @@ const RequirementsSection: React.FC = () => {
                   </motion.button>
                 </div>
 
-                {/* Hover Glow Effect */}
+                
                 <div className="absolute inset-0 bg-gradient-to-r from-purple-500/0 via-purple-500/5 to-blue-500/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
               </div>
             </motion.div>
           ))}
         </motion.div>
 
-        {/* Load More Button */}
+        
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}

@@ -4,9 +4,9 @@ import { motion } from 'framer-motion';
 const InteractiveElements: React.FC = () => {
   return (
     <>
-      {/* Floating Background Particles */}
+      
       <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
-        {/* Animated Gradient Orbs */}
+        
         <motion.div
           className="absolute -top-20 -left-20 w-96 h-96 bg-purple-600/20 rounded-full blur-3xl"
           animate={{
@@ -46,7 +46,7 @@ const InteractiveElements: React.FC = () => {
           }}
         />
 
-        {/* Floating Ingredient Icons */}
+      
         <motion.div
           className="absolute top-1/4 left-1/4 text-4xl opacity-30"
           animate={{
@@ -105,7 +105,7 @@ const InteractiveElements: React.FC = () => {
           🌶️
         </motion.div>
 
-        {/* Particle Dots */}
+        
         {Array.from({ length: 20 }).map((_, i) => (
           <motion.div
             key={i}
@@ -127,7 +127,7 @@ const InteractiveElements: React.FC = () => {
         ))}
       </div>
 
-      {/* Grid Background */}
+      
       <div className="fixed inset-0 z-0">
         <div 
           className="absolute inset-0 opacity-5"

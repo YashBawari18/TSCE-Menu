@@ -13,10 +13,10 @@ const CustomCursor: React.FC = () => {
     const handleMouseEnter = () => setIsHovering(true);
     const handleMouseLeave = () => setIsHovering(false);
 
-    // Add mouse move listener
+    
     window.addEventListener('mousemove', updateMousePosition);
 
-    // Add hover listeners to interactive elements
+    
     const interactiveElements = document.querySelectorAll('button, a, input, [role="button"]');
     interactiveElements.forEach(el => {
       el.addEventListener('mouseenter', handleMouseEnter);
@@ -34,7 +34,7 @@ const CustomCursor: React.FC = () => {
 
   return (
     <>
-      {/* Main Cursor */}
+      
       <motion.div
         className="fixed pointer-events-none z-50 mix-blend-difference"
         animate={{
@@ -52,7 +52,7 @@ const CustomCursor: React.FC = () => {
         <div className="w-4 h-4 bg-white rounded-full shadow-lg" />
       </motion.div>
 
-      {/* Trailing Glow */}
+      
       <motion.div
         className="fixed pointer-events-none z-40"
         animate={{
@@ -70,7 +70,7 @@ const CustomCursor: React.FC = () => {
         <div className="w-10 h-10 bg-gradient-to-r from-purple-500/30 to-pink-500/30 rounded-full blur-lg" />
       </motion.div>
 
-      {/* Particle Trail */}
+      
       <motion.div
         className="fixed pointer-events-none z-30"
         animate={{

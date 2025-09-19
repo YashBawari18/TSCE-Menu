@@ -36,7 +36,7 @@ const Navigation: React.FC = () => {
             </span>
           </Link>
 
-          {/* Desktop Navigation */}
+          
           <div className="hidden md:flex items-center space-x-8">
             {navItems.map((item) => (
               <Link
@@ -66,7 +66,7 @@ const Navigation: React.FC = () => {
             ))}
           </div>
 
-          {/* Mobile Menu Button */}
+          
           <motion.button
             whileTap={{ scale: 0.95 }}
             onClick={() => setIsOpen(!isOpen)}
@@ -76,7 +76,7 @@ const Navigation: React.FC = () => {
           </motion.button>
         </div>
 
-        {/* Mobile Navigation */}
+        
         <motion.div
           initial={false}
           animate={{ height: isOpen ? 'auto' : 0, opacity: isOpen ? 1 : 0 }}

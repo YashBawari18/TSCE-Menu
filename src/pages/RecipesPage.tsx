@@ -35,7 +35,6 @@ const RecipesPage: React.FC = () => {
   const [userIngredients, setUserIngredients] = useState("");
   const [imageError, setImageError] = useState<Record<number, boolean>>({});
 
-  // Simple SVG data-URI fallback (shows "Image not available")
   const placeholderSvg = encodeURIComponent(
     `<svg xmlns='http://www.w3.org/2000/svg' width='1200' height='800'><rect width='100%' height='100%' fill='#111827'/><text x='50%' y='50%' fill='#9CA3AF' font-size='28' text-anchor='middle' font-family='Arial' dy='.3em'>Image not available</text></svg>`
   );
@@ -48,7 +47,6 @@ const RecipesPage: React.FC = () => {
     { id: "global", label: "International", icon: Globe, color: "from-orange-500 to-red-600" },
   ];
 
-  // 6 sample recipes (images use Unsplash with cropping params)
   const recipes: Recipe[] = [
     {
       id: 1,
@@ -133,7 +131,6 @@ const RecipesPage: React.FC = () => {
     setUserIngredients(""); // reset input
   };
 
-  // Simple substitution dictionary for common pantry swaps
   const substitutionMap: Record<string, string[]> = {
     "olive oil": ["any neutral oil", "butter"],
     garlic: ["onion", "garlic powder"],
@@ -145,7 +142,7 @@ const RecipesPage: React.FC = () => {
     chickpeas: ["white beans", "lentils"],
   };
 
-  // Build a zero-waste plan based on what the user typed (comma-separated list)
+  
   const buildZeroWastePlan = (recipe: Recipe, userIngText: string) => {
     const userSet = new Set(
       userIngText
@@ -175,7 +172,7 @@ const RecipesPage: React.FC = () => {
         plan.push("You have everything — follow the original steps.");
       }
     } else {
-      // nothing in common — give zero waste tips
+      
       plan.push("No core ingredients detected from your input.");
       plan.push("Zero-waste options & tips:");
       plan.push("• Use vegetable peels/ends to make a quick stock.");
@@ -187,16 +184,16 @@ const RecipesPage: React.FC = () => {
     return { have, missing, plan };
   };
 
-  // debug helper: console.log image failures (optional)
+  
   const onImgError = (id: number) => {
     setImageError((p) => ({ ...p, [id]: true }));
-    // console.warn(`Image failed to load for recipe ${id}`);
+    
   };
 
   return (
     <div className="pt-24 pb-16 px-4 min-h-screen bg-black/50">
       <div className="max-w-7xl mx-auto">
-        {/* header */}
+        
         <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} className="text-center mb-12">
           <h1 className="text-4xl md:text-5xl font-extrabold mb-2 bg-clip-text text-transparent bg-gradient-to-r from-pink-500 via-purple-500 to-blue-400">
             ZERO-WASTE RECIPE FINDER
@@ -204,7 +201,7 @@ const RecipesPage: React.FC = () => {
           <p className="text-gray-400 max-w-3xl mx-auto">Click any card, tell the app what you have and get a zero-waste plan.</p>
         </motion.div>
 
-        {/* grid */}
+        
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {recipes.map((r, idx) => (
             <motion.div
@@ -296,7 +293,7 @@ const RecipesPage: React.FC = () => {
                   className="w-full bg-gray-800 rounded-lg p-3 mb-4 border border-gray-700 text-white"
                 />
 
-                {/* computed zero-waste plan */}
+               
                 <ZeroWastePlanView recipe={selectedRecipe} userInput={userIngredients} buildPlan={buildZeroWastePlan} />
               </div>
             </motion.div>
@@ -307,7 +304,7 @@ const RecipesPage: React.FC = () => {
   );
 };
 
-// Separate small component to render the plan (keeps main file tidy)
+
 function ZeroWastePlanView({
   recipe,
   userInput,

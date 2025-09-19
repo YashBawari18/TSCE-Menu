@@ -43,7 +43,7 @@ const AboutPage: React.FC = () => {
   return (
     <div className="pt-24 pb-16 px-4 min-h-screen">
       <div className="max-w-7xl mx-auto">
-        {/* Header */}
+        
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}

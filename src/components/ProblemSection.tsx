@@ -37,7 +37,7 @@ const ProblemSection: React.FC = () => {
         </motion.div>
 
         <div className="grid md:grid-cols-2 gap-16 items-center">
-          {/* Problem Illustration */}
+          
           <motion.div variants={itemVariants} className="relative">
             <div className="relative bg-gradient-to-br from-red-900/30 to-pink-900/30 rounded-3xl p-8 border border-red-500/20 backdrop-blur-sm">
               <div className="absolute top-4 right-4">
@@ -71,7 +71,7 @@ const ProblemSection: React.FC = () => {
             </div>
           </motion.div>
 
-          {/* Solution Preview */}
+          
           <motion.div variants={itemVariants} className="relative">
             <div className="relative bg-gradient-to-br from-green-900/30 to-blue-900/30 rounded-3xl p-8 border border-green-500/20 backdrop-blur-sm">
               <div className="absolute top-4 right-4">
@@ -106,7 +106,7 @@ const ProblemSection: React.FC = () => {
           </motion.div>
         </div>
 
-        {/* Animated Arrow */}
+        
         <motion.div
           className="flex justify-center mt-12"
           variants={itemVariants}

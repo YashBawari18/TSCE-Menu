@@ -112,7 +112,7 @@ const FeaturesPage: React.FC = () => {
         </motion.div>
 
         <div className="grid lg:grid-cols-3 gap-8">
-          {/* Feature Navigation */}
+          
           <div className="lg:col-span-1">
             <div className="sticky top-32 space-y-4">
               {features.map((feature) => (
@@ -141,7 +141,7 @@ const FeaturesPage: React.FC = () => {
             </div>
           </div>
 
-          {/* Feature Details */}
+          
           <div className="lg:col-span-2">
             <motion.div
               key={activeFeature}
@@ -150,7 +150,7 @@ const FeaturesPage: React.FC = () => {
               transition={{ duration: 0.3 }}
               className="bg-gradient-to-br from-gray-900/80 to-black/80 backdrop-blur-sm rounded-3xl p-8 border border-gray-700/50"
             >
-              {/* Feature Header */}
+              
               <div className="flex items-center space-x-4 mb-6">
                 <div className={`w-16 h-16 rounded-2xl bg-gradient-to-r ${currentFeature.color} p-4`}>
                   <currentFeature.icon className="w-full h-full text-white" />
@@ -161,7 +161,7 @@ const FeaturesPage: React.FC = () => {
                 </div>
               </div>
 
-              {/* Feature Demo Area */}
+              
               <div className="bg-black/50 rounded-2xl p-8 mb-6 min-h-[300px] flex items-center justify-center">
                 <motion.div
                   initial={{ scale: 0.8, opacity: 0 }}
@@ -193,7 +193,7 @@ const FeaturesPage: React.FC = () => {
                 </motion.div>
               </div>
 
-              {/* Benefits List */}
+              
               <div>
                 <h3 className="text-xl font-bold text-white mb-4">Key Benefits</h3>
                 <div className="grid md:grid-cols-2 gap-4">
@@ -215,7 +215,7 @@ const FeaturesPage: React.FC = () => {
           </div>
         </div>
 
-        {/* Call to Action */}
+       
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}

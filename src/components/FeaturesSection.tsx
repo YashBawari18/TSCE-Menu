@@ -90,7 +90,7 @@ const FeaturesSection: React.FC = () => {
                   </motion.div>
                 </motion.div>
 
-                {/* Floating particles */}
+                
                 <motion.div
                   className="absolute top-4 right-4 w-2 h-2 bg-pink-500 rounded-full opacity-60"
                   animate={{
@@ -108,7 +108,7 @@ const FeaturesSection: React.FC = () => {
           ))}
         </div>
 
-        {/* Interactive Demo Section */}
+        
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}

@@ -27,7 +27,7 @@ const LandingPage: React.FC = () => {
             <ChefHat className="w-24 h-24 text-pink-500 drop-shadow-[0_0_30px_rgba(236,72,153,0.7)]" />
           </motion.div>
 
-          {/* Sparkles pulsing */}
+         
           <motion.div
             animate={{ scale: [1, 1.3, 1] }}
             transition={{ duration: 1.5, repeat: Infinity }}
@@ -35,7 +35,7 @@ const LandingPage: React.FC = () => {
             <Sparkles className="w-10 h-10 text-yellow-400" />
           </motion.div>
 
-          {/* Loader text */}
+        
           <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -46,7 +46,7 @@ const LandingPage: React.FC = () => {
           </motion.p>
         </motion.div>
       ) : (
-        // ---------------- MAIN CONTENT ----------------
+        
         <motion.div
           key="content"
           initial={{ opacity: 0 }}
@@ -60,7 +60,7 @@ const LandingPage: React.FC = () => {
               <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-purple-500/20 via-transparent to-transparent"></div>
             </div>
 
-            {/* Floating Elements */}
+            
             <motion.div
               className="absolute top-20 left-20 w-4 h-4 bg-pink-500 rounded-full blur-sm"
               animate={{ y: [-10, 10, -10], x: [-5, 5, -5] }}
@@ -77,7 +77,7 @@ const LandingPage: React.FC = () => {
               transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
             />
 
-            {/* Main Content */}
+            
             <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
               <motion.div
                 initial={{ opacity: 0, y: 50 }}
@@ -162,7 +162,7 @@ const LandingPage: React.FC = () => {
               </motion.div>
             </div>
 
-            {/* Right side Dish */}
+          
             <div className="absolute right-[-200px] bottom-0 flex items-end justify-center">
               <motion.img
                 src="https://static.vecteezy.com/system/resources/previews/048/386/753/non_2x/a-plate-filled-with-bbq-ribs-corn-on-the-cob-and-grilled-vegetables-top-view-isolated-on-a-transparent-background-free-png.png"
@@ -181,7 +181,7 @@ const LandingPage: React.FC = () => {
                 }}
               />
 
-              {/* Steam animation */}
+              
               <div className="absolute top-[-50px] left-[20%] flex flex-col space-y-4">
                 <motion.div
                   className="w-16 h-32 bg-gradient-to-b from-white/70 to-transparent rounded-full blur-lg"
@@ -204,7 +204,7 @@ const LandingPage: React.FC = () => {
               </div>
             </div>
 
-            {/* Scroll Indicator */}
+            
             <motion.div
               className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
               animate={{ y: [0, 10, 0] }}
