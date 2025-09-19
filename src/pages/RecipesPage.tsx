@@ -1,214 +1,367 @@
-import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import { Search, Filter, Clock, Users, Leaf, Globe, Star, Heart, BookOpen } from 'lucide-react';
+// src/pages/RecipesPage.tsx
+import React, { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import {
+  Search,
+  Filter,
+  Clock,
+  Users,
+  Leaf,
+  Globe,
+  Star,
+  Heart,
+  BookOpen,
+  X,
+  Check,
+} from "lucide-react";
+
+type Recipe = {
+  id: number;
+  title: string;
+  cuisine?: string;
+  time?: string;
+  image: string;
+  rating?: number;
+  difficulty?: string;
+  servings?: number;
+  ingredients: string[];
+  baseSteps: string[];
+};
 
 const RecipesPage: React.FC = () => {
-  const [searchQuery, setSearchQuery] = useState('');
-  const [activeFilters, setActiveFilters] = useState<string[]>(['vegetarian']);
+  const [searchQuery, setSearchQuery] = useState("");
   const [favorites, setFavorites] = useState<number[]>([]);
+  const [selectedRecipe, setSelectedRecipe] = useState<Recipe | null>(null);
+  const [userIngredients, setUserIngredients] = useState("");
+  const [imageError, setImageError] = useState<Record<number, boolean>>({});
+
+  // Simple SVG data-URI fallback (shows "Image not available")
+  const placeholderSvg = encodeURIComponent(
+    `<svg xmlns='http://www.w3.org/2000/svg' width='1200' height='800'><rect width='100%' height='100%' fill='#111827'/><text x='50%' y='50%' fill='#9CA3AF' font-size='28' text-anchor='middle' font-family='Arial' dy='.3em'>Image not available</text></svg>`
+  );
+  const placeholder = `data:image/svg+xml;utf8,${placeholderSvg}`;
 
   const filterOptions = [
-    { id: 'vegetarian', label: 'Vegetarian', icon: Leaf, color: 'from-green-500 to-emerald-600' },
-    { id: 'quick', label: '< 30 min', icon: Clock, color: 'from-blue-500 to-cyan-600' },
-    { id: 'family', label: 'Family Size', icon: Users, color: 'from-purple-500 to-pink-600' },
-    { id: 'global', label: 'International', icon: Globe, color: 'from-orange-500 to-red-600' }
+    { id: "vegetarian", label: "Vegetarian", icon: Leaf, color: "from-green-500 to-emerald-600" },
+    { id: "quick", label: "< 30 min", icon: Clock, color: "from-blue-500 to-cyan-600" },
+    { id: "family", label: "Family Size", icon: Users, color: "from-purple-500 to-pink-600" },
+    { id: "global", label: "International", icon: Globe, color: "from-orange-500 to-red-600" },
   ];
 
-  const recipes = [
-    { id: 1, title: "AI Fusion Pasta", cuisine: "Italian-AI", time: "25 min", image: "🍝", rating: 4.9, difficulty: "Easy", servings: 4 },
-    { id: 2, title: "Smart Stir Fry", cuisine: "Asian-Tech", time: "15 min", image: "🥘", rating: 4.8, difficulty: "Easy", servings: 2 },
-    { id: 3, title: "Quantum Quinoa Bowl", cuisine: "Future-Health", time: "20 min", image: "🥗", rating: 5.0, difficulty: "Medium", servings: 1 },
-    { id: 4, title: "Cyber Curry", cuisine: "Indian-Digital", time: "35 min", image: "🍛", rating: 4.7, difficulty: "Medium", servings: 6 },
-    { id: 5, title: "Holographic Hummus", cuisine: "Middle-Eastern", time: "10 min", image: "🥙", rating: 4.6, difficulty: "Easy", servings: 4 },
-    { id: 6, title: "Neural Network Noodles", cuisine: "Japanese-AI", time: "30 min", image: "🍜", rating: 4.9, difficulty: "Hard", servings: 2 },
+  // 6 sample recipes (images use Unsplash with cropping params)
+  const recipes: Recipe[] = [
+    {
+      id: 1,
+      title: "AI Fusion Pasta",
+      cuisine: "Italian",
+      time: "25 min",
+      image: "https://i.pinimg.com/1200x/24/d3/62/24d362c6c549820edada6ed8b85b55a9.jpg",
+      rating: 4.9,
+      difficulty: "Easy",
+      servings: 4,
+      ingredients: ["Pasta", "Olive Oil", "Garlic", "Parmesan"],
+      baseSteps: ["Boil pasta in salted water.", "Sauté garlic in oil, add sauce.", "Toss pasta with sauce and top with parmesan."],
+    },
+    {
+      id: 2,
+      title: "Smart Stir Fry",
+      cuisine: "Asian",
+      time: "15 min",
+      image: "https://i.pinimg.com/1200x/35/c1/d7/35c1d7488e9f466a2dd38bceb2fb9c01.jpg",
+      rating: 4.8,
+      difficulty: "Easy",
+      servings: 2,
+      ingredients: ["Mixed Vegetables", "Soy Sauce", "Sesame Oil", "Rice"],
+      baseSteps: ["Heat oil in wok.", "Stir-fry vegetables on high heat.", "Season with soy sauce and serve on rice."],
+    },
+    {
+      id: 3,
+      title: "Quantum Quinoa Bowl",
+      cuisine: "Healthy",
+      time: "20 min",
+      image: "https://i.pinimg.com/736x/09/fb/f9/09fbf9c70c5adc9467f5571988280e8e.jpg",
+      rating: 5.0,
+      difficulty: "Medium",
+      servings: 1,
+      ingredients: ["Quinoa", "Avocado", "Greens", "Lime"],
+      baseSteps: ["Cook quinoa until fluffy.", "Assemble bowl with greens and avocado.", "Dress with lime and olive oil."],
+    },
+    {
+      id: 4,
+      title: "Cyber Curry",
+      cuisine: "Indian",
+      time: "35 min",
+      image: "https://i.pinimg.com/1200x/fa/d6/88/fad68848a79e3af3f76e8422b34da6dd.jpg",
+      rating: 4.7,
+      difficulty: "Medium",
+      servings: 6,
+      ingredients: ["Onion", "Tomato", "Spices", "Coconut Milk"],
+      baseSteps: ["Sauté onions and spices.", "Add tomato and simmer.", "Pour coconut milk and cook until thick."],
+    },
+    {
+      id: 5,
+      title: "Holographic Hummus",
+      cuisine: "Middle-Eastern",
+      time: "10 min",
+      image: "https://i.pinimg.com/1200x/43/43/b4/4343b42187bcb1ce6172bfba0ff830bc.jpg",
+      rating: 4.6,
+      difficulty: "Easy",
+      servings: 4,
+      ingredients: ["Chickpeas", "Tahini", "Lemon", "Garlic"],
+      baseSteps: ["Blend chickpeas with tahini and lemon.", "Add garlic and seasoning.", "Adjust texture with oil or water."],
+    },
+    {
+      id: 6,
+      title: "Neural Network Noodles",
+      cuisine: "Japanese",
+      time: "30 min",
+      image: "https://i.pinimg.com/1200x/85/09/10/850910eeb1283265cdded6dc94107ba4.jpg",
+      rating: 4.9,
+      difficulty: "Hard",
+      servings: 2,
+      ingredients: ["Noodles", "Broth", "Spring Onions", "Protein"],
+      baseSteps: ["Prepare the broth.", "Cook noodles until tender.", "Assemble and garnish with spring onions and protein."],
+    },
   ];
 
-  const toggleFilter = (filterId: string) => {
-    setActiveFilters(prev => 
-      prev.includes(filterId) 
-        ? prev.filter(id => id !== filterId)
-        : [...prev, filterId]
+  const toggleFavorite = (id: number) => {
+    setFavorites((prev) => (prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]));
+  };
+
+  const viewRecipe = (recipe: Recipe) => {
+    setSelectedRecipe(recipe);
+    setUserIngredients(""); // reset input
+  };
+
+  // Simple substitution dictionary for common pantry swaps
+  const substitutionMap: Record<string, string[]> = {
+    "olive oil": ["any neutral oil", "butter"],
+    garlic: ["onion", "garlic powder"],
+    pasta: ["rice", "noodles"],
+    quinoa: ["rice", "millet"],
+    "soy sauce": ["tamari", "salt + vinegar"],
+    "coconut milk": ["yogurt", "cream"],
+    parmesan: ["yogurt", "crumbled paneer"],
+    chickpeas: ["white beans", "lentils"],
+  };
+
+  // Build a zero-waste plan based on what the user typed (comma-separated list)
+  const buildZeroWastePlan = (recipe: Recipe, userIngText: string) => {
+    const userSet = new Set(
+      userIngText
+        .split(",")
+        .map((x) => x.trim().toLowerCase())
+        .filter(Boolean)
     );
+
+    const have = recipe.ingredients.filter((i) => userSet.has(i.toLowerCase()));
+    const missing = recipe.ingredients.filter((i) => !userSet.has(i.toLowerCase()));
+
+    const plan: string[] = [];
+
+    if (have.length > 0) {
+      plan.push(`You have: ${have.join(", ")} — great, we'll use these.`);
+      plan.push("Adapted steps (use what you have):");
+      recipe.baseSteps.forEach((s, idx) => plan.push(`${idx + 1}. ${s}`));
+      if (missing.length > 0) {
+        plan.push(`Missing: ${missing.join(", ")}.`);
+        missing.forEach((m) => {
+          const key = m.toLowerCase();
+          const subs = substitutionMap[key];
+          if (subs) plan.push(`Substitute for ${m}: ${subs.join(" or ")}.`);
+          else plan.push(`No direct substitution found for ${m}. Use pantry staples or improvise.`);
+        });
+      } else {
+        plan.push("You have everything — follow the original steps.");
+      }
+    } else {
+      // nothing in common — give zero waste tips
+      plan.push("No core ingredients detected from your input.");
+      plan.push("Zero-waste options & tips:");
+      plan.push("• Use vegetable peels/ends to make a quick stock.");
+      plan.push("• Combine leftover grains + any veg + a sauce to create a bowl.");
+      plan.push("• Roast scraps for crunchy salad toppers.");
+      plan.push("• If you share what you have (comma-separated), I can tailor steps.");
+    }
+
+    return { have, missing, plan };
   };
 
-  const toggleFavorite = (recipeId: number) => {
-    setFavorites(prev => 
-      prev.includes(recipeId)
-        ? prev.filter(id => id !== recipeId)
-        : [...prev, recipeId]
-    );
-  };
-
-  const handleSearch = () => {
-    console.log('Searching for:', searchQuery);
-    // Implement search functionality
-  };
-
-  const viewRecipe = (recipeId: number) => {
-    console.log('Viewing recipe:', recipeId);
-    // Implement recipe view functionality
+  // debug helper: console.log image failures (optional)
+  const onImgError = (id: number) => {
+    setImageError((p) => ({ ...p, [id]: true }));
+    // console.warn(`Image failed to load for recipe ${id}`);
   };
 
   return (
-    <div className="pt-24 pb-16 px-4 min-h-screen">
+    <div className="pt-24 pb-16 px-4 min-h-screen bg-black/50">
       <div className="max-w-7xl mx-auto">
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="text-center mb-16"
-        >
-          <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 bg-clip-text text-transparent">
-            RECIPE DISCOVERY
+        {/* header */}
+        <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} className="text-center mb-12">
+          <h1 className="text-4xl md:text-5xl font-extrabold mb-2 bg-clip-text text-transparent bg-gradient-to-r from-pink-500 via-purple-500 to-blue-400">
+            ZERO-WASTE RECIPE FINDER
           </h1>
-          <p className="text-xl text-gray-400 max-w-3xl mx-auto">
-            Explore thousands of AI-curated recipes tailored to your preferences
-          </p>
+          <p className="text-gray-400 max-w-3xl mx-auto">Click any card, tell the app what you have and get a zero-waste plan.</p>
         </motion.div>
 
-        {/* Search Bar */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="mb-12"
-        >
-          <div className="relative max-w-2xl mx-auto mb-8">
-            <div className="absolute inset-0 bg-gradient-to-r from-purple-500/20 to-blue-500/20 rounded-full blur-xl"></div>
-            <div className="relative flex items-center bg-gray-900/80 backdrop-blur-sm border border-gray-700 rounded-full p-4">
-              <Search className="w-6 h-6 text-gray-400 mr-4" />
-              <input
-                type="text"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search recipes with AI..."
-                className="flex-1 bg-transparent text-white placeholder-gray-400 outline-none text-lg"
-                onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
-              />
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={handleSearch}
-                className="ml-4 p-2 bg-gradient-to-r from-purple-600 to-blue-600 rounded-full"
-              >
-                <Filter className="w-5 h-5 text-white" />
-              </motion.button>
-            </div>
-          </div>
-
-          {/* Filter Toggles */}
-          <div className="flex flex-wrap justify-center gap-4">
-            {filterOptions.map((filter) => (
-              <motion.button
-                key={filter.id}
-                onClick={() => toggleFilter(filter.id)}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className={`relative flex items-center px-6 py-3 rounded-full border transition-all duration-300 ${
-                  activeFilters.includes(filter.id)
-                    ? 'bg-gradient-to-r ' + filter.color + ' border-transparent text-white shadow-lg'
-                    : 'bg-gray-900/50 border-gray-600 text-gray-300 hover:border-purple-500'
-                }`}
-              >
-                <filter.icon className="w-5 h-5 mr-2" />
-                <span className="font-semibold">{filter.label}</span>
-              </motion.button>
-            ))}
-          </div>
-        </motion.div>
-
-        {/* Recipe Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {recipes.map((recipe, index) => (
+        {/* grid */}
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          {recipes.map((r, idx) => (
             <motion.div
-              key={recipe.id}
-              initial={{ opacity: 0, y: 50 }}
+              key={r.id}
+              initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.1 }}
-              whileHover={{ 
-                scale: 1.05,
-                boxShadow: "0 25px 50px rgba(139,69,255,0.3)"
-              }}
-              className="group relative bg-gradient-to-br from-gray-900/80 to-black/80 backdrop-blur-sm rounded-2xl overflow-hidden border border-gray-700/50 hover:border-purple-500/50 transition-all duration-500"
+              transition={{ delay: idx * 0.08 }}
+              whileHover={{ scale: 1.03 }}
+              className="group cursor-pointer rounded-2xl overflow-hidden border border-gray-700 bg-gradient-to-br from-gray-900/70 to-black/60 shadow-lg"
+              onClick={() => viewRecipe(r)}
             >
-              {/* Recipe Image */}
-              <div className="relative h-48 bg-gradient-to-br from-purple-900/30 to-blue-900/30 flex items-center justify-center">
-                <span className="text-6xl">{recipe.image}</span>
-                
-                {/* Rating */}
-                <div className="absolute top-4 right-4 bg-black/50 backdrop-blur-sm rounded-full px-3 py-1">
-                  <span className="text-yellow-400 font-semibold flex items-center">
-                    <Star className="w-4 h-4 mr-1 fill-current" />
-                    {recipe.rating}
-                  </span>
+              <div className="relative h-56 overflow-hidden bg-gray-800">
+                <motion.img
+                  src={imageError[r.id] ? placeholder : r.image}
+                  alt={r.title}
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  onError={() => onImgError(r.id)}
+                />
+                <div className="absolute top-4 right-4 bg-black/60 rounded-full px-3 py-1 flex items-center">
+                  <Star className="w-4 h-4 text-yellow-400 mr-1" />
+                  <span className="text-yellow-400 font-semibold text-sm">{r.rating ?? "—"}</span>
                 </div>
-
-                {/* Favorite Button */}
-                <motion.button
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.9 }}
-                  onClick={() => toggleFavorite(recipe.id)}
-                  className="absolute top-4 left-4 p-2 bg-black/50 backdrop-blur-sm rounded-full"
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    toggleFavorite(r.id);
+                  }}
+                  className="absolute top-4 left-4 p-2 rounded-full bg-black/50"
                 >
-                  <Heart 
-                    className={`w-5 h-5 ${
-                      favorites.includes(recipe.id) 
-                        ? 'text-red-500 fill-current' 
-                        : 'text-gray-400'
-                    }`} 
-                  />
-                </motion.button>
+                  <Heart className={`w-5 h-5 ${favorites.includes(r.id) ? "text-red-400" : "text-gray-300"}`} />
+                </button>
               </div>
 
-              {/* Recipe Info */}
-              <div className="p-6">
-                <h3 className="text-xl font-bold text-white mb-2 group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:bg-clip-text group-hover:from-purple-400 group-hover:to-blue-400 transition-all duration-300">
-                  {recipe.title}
-                </h3>
-                
-                <div className="flex justify-between items-center text-gray-400 text-sm mb-4">
-                  <span>{recipe.cuisine}</span>
-                  <span>{recipe.time}</span>
+              <div className="p-5">
+                <h3 className="text-lg font-bold text-white mb-2">{r.title}</h3>
+                <p className="text-gray-400 text-sm mb-4">{r.cuisine} • {r.time} • {r.difficulty}</p>
+                <div className="flex gap-2">
+                  <button
+                    onClick={(e) => { e.stopPropagation(); viewRecipe(r); }}
+                    className="flex items-center gap-2 px-4 py-2 border border-purple-600 rounded-xl text-purple-300 hover:bg-purple-600/10 transition"
+                  >
+                    <BookOpen className="w-4 h-4" /> View & cook
+                  </button>
+                  <button
+                    onClick={(e) => { e.stopPropagation(); toggleFavorite(r.id); }}
+                    className="px-3 py-2 border rounded-xl border-gray-700 text-gray-300 hover:bg-gray-800/60 transition"
+                  >
+                    {favorites.includes(r.id) ? "Saved" : "Save"}
+                  </button>
                 </div>
-
-                <div className="flex justify-between items-center text-gray-400 text-sm mb-4">
-                  <span>Difficulty: {recipe.difficulty}</span>
-                  <span>Serves: {recipe.servings}</span>
-                </div>
-
-                <motion.button
-                  whileHover={{ scale: 1.02, backgroundColor: "rgba(139,69,255,0.1)" }}
-                  whileTap={{ scale: 0.98 }}
-                  onClick={() => viewRecipe(recipe.id)}
-                  className="w-full py-3 border border-purple-500/30 rounded-lg text-purple-400 hover:text-purple-300 transition-all duration-300 flex items-center justify-center"
-                >
-                  <BookOpen className="w-4 h-4 mr-2" />
-                  View Recipe
-                </motion.button>
               </div>
             </motion.div>
           ))}
         </div>
-
-        {/* Load More */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="text-center mt-16"
-        >
-          <motion.button
-            whileHover={{ 
-              scale: 1.05, 
-              boxShadow: "0 0 50px rgba(59,130,246,0.5)" 
-            }}
-            whileTap={{ scale: 0.95 }}
-            className="px-12 py-4 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full text-white font-semibold border border-blue-500/30 backdrop-blur-sm hover:border-blue-400 transition-all duration-300"
-          >
-            Load More Recipes
-          </motion.button>
-        </motion.div>
       </div>
+
+      {/* modal */}
+      <AnimatePresence>
+        {selectedRecipe && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-6"
+          >
+            <motion.div initial={{ scale: 0.95, y: 30 }} animate={{ scale: 1, y: 0 }} exit={{ scale: 0.95, y: 30 }} className="bg-gray-900 rounded-2xl w-full max-w-3xl overflow-auto">
+              <div className="relative">
+                <button onClick={() => setSelectedRecipe(null)} className="absolute top-4 right-4 p-3">
+                  <X className="w-6 h-6 text-gray-300" />
+                </button>
+                <img
+                  src={imageError[selectedRecipe.id] ? placeholder : selectedRecipe.image}
+                  alt={selectedRecipe.title}
+                  onError={() => onImgError(selectedRecipe.id)}
+                  className="w-full h-64 object-cover rounded-t-2xl"
+                />
+              </div>
+
+              <div className="p-6">
+                <h2 className="text-2xl font-bold text-white mb-2">{selectedRecipe.title}</h2>
+                <p className="text-gray-400 mb-4">{selectedRecipe.cuisine} • {selectedRecipe.time} • Serves {selectedRecipe.servings}</p>
+
+                <label className="block text-sm text-gray-300 mb-2">What ingredients do you have? <span className="text-xs text-gray-400">(comma-separated)</span></label>
+                <input
+                  type="text"
+                  placeholder="e.g. pasta, garlic, olive oil"
+                  value={userIngredients}
+                  onChange={(e) => setUserIngredients(e.target.value)}
+                  className="w-full bg-gray-800 rounded-lg p-3 mb-4 border border-gray-700 text-white"
+                />
+
+                {/* computed zero-waste plan */}
+                <ZeroWastePlanView recipe={selectedRecipe} userInput={userIngredients} buildPlan={buildZeroWastePlan} />
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };
 
+// Separate small component to render the plan (keeps main file tidy)
+function ZeroWastePlanView({
+  recipe,
+  userInput,
+  buildPlan,
+}: {
+  recipe: Recipe;
+  userInput: string;
+  buildPlan: (r: Recipe, ui: string) => { have: string[]; missing: string[]; plan: string[] };
+}) {
+  const { have, missing, plan } = buildPlan(recipe, userInput);
+
+  return (
+    <div className="mt-2">
+      <div className="mb-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div className="p-4 bg-gray-800 rounded-lg">
+          <h4 className="text-sm text-gray-300 font-semibold mb-2">Ingredients (recipe)</h4>
+          <ul className="text-gray-300 space-y-1">
+            {recipe.ingredients.map((ing) => {
+              const present = have.includes(ing);
+              return (
+                <li key={ing} className="flex items-center gap-2">
+                  <span className={`p-1 rounded-md ${present ? "bg-green-800" : "bg-gray-700"}`}>
+                    <Check className="w-4 h-4 text-white" />
+                  </span>
+                  <span className={`${present ? "text-green-300" : "text-gray-300"}`}>{ing}</span>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+
+        <div className="p-4 bg-gray-800 rounded-lg">
+          <h4 className="text-sm text-gray-300 font-semibold mb-2">Quick result</h4>
+          <div className="text-gray-300 text-sm space-y-2">
+            {plan.map((p, i) => (
+              <div key={i} className="leading-relaxed">{p}</div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <h4 className="text-sm text-gray-300 font-semibold mb-2">Final steps</h4>
+        <ol className="list-decimal list-inside text-gray-300 space-y-2">
+          {plan
+            .filter((s) => s.length > 0)
+            .map((s, i) => (
+              <li key={i}>{s}</li>
+            ))}
+        </ol>
+      </div>
+    </div>
+  );
+}
+
 export default RecipesPage;
+
