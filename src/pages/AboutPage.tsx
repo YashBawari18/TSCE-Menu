@@ -214,7 +214,7 @@ const AboutPage = () => {
               <div
                 key={index}
                 className="text-center p-6 bg-gradient-to-br from-gray-900/80 to-black/80 backdrop-blur-sm rounded-2xl border border-gray-700/50 hover-lift pulse-glow relative group"
-                style={{ '--animation-delay': `${index * 0.2}s` }}
+                // style={{ '--animation-delay': `${index * 0.2}s` }}
               >
                 <div className="relative mb-4">
                   <div className={`w-12 h-12 bg-gradient-to-r ${stat.color} rounded-full p-3 mx-auto relative z-10`}>
@@ -508,7 +508,7 @@ const AboutPage = () => {
                 <div
                   key={index}
                   className="p-6 bg-gradient-to-br from-gray-900/80 to-black/80 backdrop-blur-sm rounded-2xl border border-gray-700/50 hover-lift group relative overflow-hidden"
-                  style={{ '--animation-delay': `${index * 0.1}s` }}
+                  // style={{ '--animation-delay': `${index * 0.1}s` }}
                 >
                   
                   <div className="absolute inset-0 bg-gradient-to-r opacity-0 group-hover:opacity-10 transition-opacity duration-500 blur-xl"

@@ -31,15 +31,11 @@ const DemoPage: React.FC = () => {
     }
   ];
 
-  const togglePlayback = () => {
-    setIsPlaying(!isPlaying);
-  };
-
+  const togglePlayback = () => setIsPlaying(!isPlaying);
   const resetDemo = () => {
     setIsPlaying(false);
     setServings(4);
   };
-
   const startDemo = (demoId: string) => {
     setCurrentDemo(demoId);
     setIsPlaying(true);
@@ -48,6 +44,7 @@ const DemoPage: React.FC = () => {
   return (
     <div className="pt-24 pb-16 px-4 min-h-screen">
       <div className="max-w-7xl mx-auto">
+        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
@@ -61,6 +58,7 @@ const DemoPage: React.FC = () => {
           </p>
         </motion.div>
 
+        {/* Demo Cards */}
         <div className="grid md:grid-cols-3 gap-6 mb-12">
           {demos.map((demo) => (
             <motion.div
@@ -79,7 +77,7 @@ const DemoPage: React.FC = () => {
               </div>
               <h3 className="text-xl font-bold text-white mb-2">{demo.title}</h3>
               <p className="text-gray-400 text-sm">{demo.description}</p>
-              
+
               {currentDemo === demo.id && (
                 <motion.div
                   layoutId="activeDemo"
@@ -90,14 +88,17 @@ const DemoPage: React.FC = () => {
           ))}
         </div>
 
+        {/* Demo Content */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           className="bg-gradient-to-br from-gray-900/80 to-black/80 backdrop-blur-sm rounded-3xl p-8 border border-gray-700/50 mb-12"
         >
           <div className="relative bg-black rounded-2xl p-8 mb-6 min-h-[400px] flex items-center justify-center">
+
+            {/* AI Recipe Suggestions */}
             {currentDemo === 'ai-suggestions' && (
-              <div className="text-center">
+              <div className="text-center w-full">
                 <motion.div
                   animate={isPlaying ? { scale: [1, 1.1, 1] } : {}}
                   transition={{ duration: 2, repeat: Infinity }}
@@ -119,13 +120,30 @@ const DemoPage: React.FC = () => {
                       <p className="text-blue-300">Found 127 matching recipes!</p>
                     </div>
                     <div className="bg-green-900/30 rounded-lg p-4">
-                      <p className="text-green-300">Top recommendation: Spicy Thai Curry</p>
+                      <p className="text-green-300">Top recommendation: AI Fusion Pasta</p>
                     </div>
                   </motion.div>
                 )}
+
+                {/* Previous Week Recipes */}
+                <div className="mt-6 text-left">
+                  <h4 className="text-xl font-semibold text-white mb-3">Previous Week Recipes</h4>
+                  <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                    {["Paneer Tikka", "Butter Chicken", "Veg Biryani", "Dal Makhani"].map((recipe, index) => (
+                      <motion.div
+                        key={index}
+                        whileHover={{ scale: 1.05 }}
+                        className="bg-gray-800/50 rounded-lg p-3 hover:bg-gray-700 transition-colors cursor-pointer"
+                      >
+                        <p className="text-gray-200">{recipe}</p>
+                      </motion.div>
+                    ))}
+                  </div>
+                </div>
               </div>
             )}
 
+            {/* Nutritional Analysis */}
             {currentDemo === 'nutrition-analysis' && (
               <div className="text-center">
                 <motion.div
@@ -159,6 +177,7 @@ const DemoPage: React.FC = () => {
               </div>
             )}
 
+            {/* Recipe Scaling */}
             {currentDemo === 'recipe-scaling' && (
               <div className="text-center w-full max-w-md">
                 <motion.div
@@ -169,7 +188,7 @@ const DemoPage: React.FC = () => {
                   <Calculator className="w-24 h-24 text-green-500 mx-auto" />
                 </motion.div>
                 <h3 className="text-2xl font-bold text-white mb-6">Recipe Scaling</h3>
-                
+
                 <div className="mb-6">
                   <label className="block text-gray-300 mb-2">Servings: <span aria-live="polite">{servings}</span></label>
                   <input
@@ -178,9 +197,7 @@ const DemoPage: React.FC = () => {
                     max={12}
                     step={1}
                     value={servings}
-                    onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                      setServings(parseInt(e.target.value, 10))
-                    }
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => setServings(parseInt(e.target.value, 10))}
                     className="w-full h-3 rounded-lg cursor-pointer pointer-events-auto"
                     aria-label="Servings"
                   />
@@ -210,6 +227,7 @@ const DemoPage: React.FC = () => {
             )}
           </div>
 
+          {/* Playback Controls */}
           <div className="flex items-center justify-center space-x-4">
             <motion.button
               whileHover={{ scale: 1.1 }}
@@ -219,7 +237,7 @@ const DemoPage: React.FC = () => {
             >
               {isPlaying ? <Pause className="w-6 h-6" /> : <Play className="w-6 h-6" />}
             </motion.button>
-            
+
             <motion.button
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
@@ -231,15 +249,16 @@ const DemoPage: React.FC = () => {
           </div>
         </motion.div>
 
+        {/* CTA Button */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           className="text-center"
         >
           <motion.button
-            whileHover={{ 
-              scale: 1.05, 
-              boxShadow: "0 0 50px rgba(139,69,255,0.5)" 
+            whileHover={{
+              scale: 1.05,
+              boxShadow: "0 0 50px rgba(139,69,255,0.5)"
             }}
             whileTap={{ scale: 0.95 }}
             className="px-12 py-4 bg-gradient-to-r from-pink-500 to-purple-600 rounded-full text-white text-lg font-semibold border border-pink-500/30 backdrop-blur-sm hover:border-pink-400 transition-all duration-300"
