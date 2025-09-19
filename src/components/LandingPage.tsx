@@ -14,43 +14,22 @@ const LandingPage: React.FC = () => {
       {/* Floating Elements */}
       <motion.div
         className="absolute top-20 left-20 w-4 h-4 bg-pink-500 rounded-full blur-sm"
-        animate={{
-          y: [-10, 10, -10],
-          x: [-5, 5, -5],
-        }}
-        transition={{
-          duration: 4,
-          repeat: Infinity,
-          ease: "easeInOut"
-        }}
+        animate={{ y: [-10, 10, -10], x: [-5, 5, -5] }}
+        transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
       />
       <motion.div
         className="absolute top-40 right-32 w-3 h-3 bg-blue-400 rounded-full blur-sm"
-        animate={{
-          y: [10, -10, 10],
-          x: [5, -5, 5],
-        }}
-        transition={{
-          duration: 6,
-          repeat: Infinity,
-          ease: "easeInOut"
-        }}
+        animate={{ y: [10, -10, 10], x: [5, -5, 5] }}
+        transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
       />
       <motion.div
         className="absolute bottom-32 left-32 w-5 h-5 bg-purple-400 rounded-full blur-sm"
-        animate={{
-          y: [-15, 15, -15],
-          x: [8, -8, 8],
-        }}
-        transition={{
-          duration: 5,
-          repeat: Infinity,
-          ease: "easeInOut"
-        }}
+        animate={{ y: [-15, 15, -15], x: [8, -8, 8] }}
+        transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
       />
 
       {/* Main Content */}
-      <div className="relative z-10 text-center px-4 max-w-6xl mx-auto">
+      <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
@@ -80,7 +59,6 @@ const LandingPage: React.FC = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
           className="text-6xl md:text-8xl font-bold mb-6 bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 bg-clip-text text-transparent leading-tight"
-          style={{ fontFamily: 'system-ui, -apple-system, sans-serif' }}
         >
           DIGITAL RECIPE
           <br />
@@ -111,7 +89,7 @@ const LandingPage: React.FC = () => {
               Explore Recipes
             </motion.button>
           </Link>
-          
+
           <Link to="/demo">
             <motion.button
               whileHover={{ scale: 1.05, boxShadow: "0 0 50px rgba(59,130,246,0.3)" }}
@@ -122,27 +100,32 @@ const LandingPage: React.FC = () => {
             </motion.button>
           </Link>
         </motion.div>
+      </div>
 
-        {/* Pulsing Ring Animation */}
-        <motion.div
-          className="absolute inset-0 pointer-events-none"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.5 }}
-        >
+      {/* Right side Dish (half visible & smooth effects) */}
+      <div className="absolute right-[-200px] bottom-0 flex items-end justify-center">
+        <motion.img
+          src="https://static.vecteezy.com/system/resources/previews/048/386/753/non_2x/a-plate-filled-with-bbq-ribs-corn-on-the-cob-and-grilled-vegetables-top-view-isolated-on-a-transparent-background-free-png.png"
+          alt="Dish"
+          className="w-[750px] h-auto object-contain drop-shadow-2xl"
+          initial={{ opacity: 0, x: 200, rotate: 0 }}
+          animate={{ opacity: 1, x: 0, rotate: 360 }}
+          transition={{ opacity: { duration: 1 }, x: { duration: 1.2 }, rotate: { duration: 40, repeat: Infinity, ease: 'linear' } }}
+        />
+
+        {/* Steam animation */}
+        <div className="absolute top-[-50px] left-[20%] flex flex-col space-y-4">
           <motion.div
-            className="absolute top-1/2 left-1/2 w-96 h-96 border border-pink-500/20 rounded-full"
-            style={{ transform: 'translate(-50%, -50%)' }}
-            animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0, 0.3] }}
-            transition={{ duration: 4, repeat: Infinity }}
+            className="w-16 h-32 bg-gradient-to-b from-white/70 to-transparent rounded-full blur-lg"
+            animate={{ y: [-10, -50, -10], opacity: [0.6, 0.1, 0.6], scale: [1, 1.1, 1] }}
+            transition={{ duration: 5, repeat: Infinity }}
           />
           <motion.div
-            className="absolute top-1/2 left-1/2 w-80 h-80 border border-purple-500/20 rounded-full"
-            style={{ transform: 'translate(-50%, -50%)' }}
-            animate={{ scale: [1, 1.3, 1], opacity: [0.3, 0, 0.3] }}
-            transition={{ duration: 4, repeat: Infinity, delay: 1 }}
+            className="w-12 h-24 bg-gradient-to-b from-white/70 to-transparent rounded-full blur-lg"
+            animate={{ y: [-5, -40, -5], opacity: [0.5, 0.1, 0.5], scale: [1, 1.15, 1] }}
+            transition={{ duration: 4, repeat: Infinity, delay: 0.5 }}
           />
-        </motion.div>
+        </div>
       </div>
 
       {/* Scroll Indicator */}
